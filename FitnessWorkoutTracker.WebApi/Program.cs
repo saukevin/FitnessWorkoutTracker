@@ -3,7 +3,9 @@ using FitnessWorkoutTracker.WebApi.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigureAppSettings(builder.Configuration);
+builder.Services.ConfigureDatabaseTempFolderAndGrantPermissions(builder.Configuration);
 builder.Services.AddRepositoryRegistrations();
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();

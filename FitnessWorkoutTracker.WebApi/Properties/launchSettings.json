@@ -4,27 +4,16 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:59047",
-      "sslPort": 44371
+      "applicationUrl": "https://localhost:44300",
+      "sslPort": 44300
     }
   },
   "profiles": {
-    "http": {
+    "FitnessWorkoutTracker.WebApi": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5116",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "https": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7272;http://localhost:5116",
+      "applicationUrl": "https://localhost:44300/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
