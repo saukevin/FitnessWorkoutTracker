@@ -1,0 +1,20 @@
+<div class="navbar">
+  <div class="logo-wrapper" (click)="goToHome()">
+    <span>Fitness Workout Tracker</span>
+  </div>
+
+  <button mat-button [matMenuTriggerFor]="workoutMenu">
+    Gestisci Allenamenti
+  </button>
+  <mat-menu #workoutMenu="matMenu">
+    <a mat-menu-item (click)="goToAppWorkouts()">
+      <span>I nostri allenamenti</span>
+    </a>
+    <a mat-menu-item (click)="goToCurrentWorkouts()">
+      <span>Allenamenti in corso</span>
+    </a>
+    <a mat-menu-item (click)="goToAddEditWorkouts()">
+      <span>Crea il tuo allenamento</span>
+    </a>
+  </mat-menu>
+</div>

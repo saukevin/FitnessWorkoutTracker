@@ -1,6 +1,4 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { WORKOUT_ADMINISTRATION_ROUTE } from '../../constants/routes';
+import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-home-page',
@@ -9,9 +7,5 @@ import { WORKOUT_ADMINISTRATION_ROUTE } from '../../constants/routes';
   styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent {
-  constructor(private router: Router) {}
-
-  goToWorkoutAdministration(): void {
-    this.router.navigate([`${WORKOUT_ADMINISTRATION_ROUTE}`]);
-  }
+  constructor() {}
 }

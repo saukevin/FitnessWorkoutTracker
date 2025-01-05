@@ -1,0 +1,26 @@
+@use "../../../../variables.scss";
+
+.navbar {
+  height: 70px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-wrapper {
+  font-size: xx-large;
+  font-weight: 600;
+  color: white;
+  background-color: variables.$main;
+  padding: 8px 16px;
+}
+
+.logo-wrapper:hover {
+  cursor: pointer;
+}
+
+button,
+span {
+  font-size: larger;
+}
