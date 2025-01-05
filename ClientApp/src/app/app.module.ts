@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { provideHttpClient } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +17,7 @@ import { provideHttpClient } from '@angular/common/http';
     SharedModule,
     AppRoutingModule,
   ],
-  providers: [provideHttpClient()],
+  providers: [provideHttpClient(), provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
