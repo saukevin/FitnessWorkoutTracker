@@ -1,11 +1,7 @@
-﻿using FitnessWorkoutTracker.Entities.SettingsEntities;
+﻿using FitnessWorkoutTracker.Entities.DbModel.Entities;
+using FitnessWorkoutTracker.Entities.SettingsEntities;
 using LiteDB;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FitnessWorkoutTracker.Entities.DbModel
 {
@@ -27,6 +23,15 @@ namespace FitnessWorkoutTracker.Entities.DbModel
             {
                 throw new Exception("Error while creating Database Context", ex);
             }
+
+            BsonMapper.Global.Entity<WorkoutCourse>()
+                   .Id((WorkoutCourse w) => w.WorkoutCourseId)
+                   .DbRef((WorkoutCourse w) => w.Exercises, DatabaseStructure.ExercisesCollection);
+            BsonMapper.Global.Entity<Exercise>()
+                   .Id((Exercise e) => e.ExerciseId)
+                   .DbRef((Exercise e) => e.ExercisePerformances, DatabaseStructure.ExercisePerformancesCollection);
+            BsonMapper.Global.Entity<ExercisePerformance>()
+                   .Id((ExercisePerformance e) => e.ExercisePerformanceId);
         }
 
     }

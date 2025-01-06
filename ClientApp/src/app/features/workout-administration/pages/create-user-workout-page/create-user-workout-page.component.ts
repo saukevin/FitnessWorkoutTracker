@@ -6,6 +6,7 @@ import { UserWorkoutFormHelper } from '../../helpers/userWorkoutFormHelper';
 import { CreateWorkoutCourseDTO } from '../../models/createWorkoutCourseDTO';
 import { finalize } from 'rxjs';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-user-workout-page',
@@ -32,6 +33,7 @@ export class CreateUserWorkoutPageComponent implements OnInit {
   loading: boolean = false;
 
   private router: Router = inject(Router);
+  private snackBar: MatSnackBar = inject(MatSnackBar);
   private workoutAdministrationService: WorkoutAdministrationService = inject(
     WorkoutAdministrationService
   );
@@ -60,8 +62,10 @@ export class CreateUserWorkoutPageComponent implements OnInit {
       .createWorkoutCourse(newWorkoutCourse)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
-        next: () => this.router.navigate([this.userWorkoutsRoute]),
-        error: () => {},
+        next: () => {
+          this.snackBar.open('Corso di allenamento personalizzato creato!');
+          this.router.navigate([this.userWorkoutsRoute]);
+        },
       });
   }
 }

@@ -22,7 +22,7 @@ namespace FitnessWorkoutTracker.WebApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<WorkoutCourseDTO> CreateNewWorkoutCourse([FromBody] WorkoutCourseDTO workoutCourse) 
+        public ActionResult<WorkoutCourseDTO> CreateNewWorkoutCourse([FromBody] CreateWorkoutCourseDTO workoutCourse) 
         {
             WorkoutCourseDTO createdCourse = workoutCourseRepository.AddWorkoutCourse(workoutCourse);
             return Ok(createdCourse);

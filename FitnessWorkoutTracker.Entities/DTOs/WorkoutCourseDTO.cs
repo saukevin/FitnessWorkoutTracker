@@ -6,25 +6,16 @@ namespace FitnessWorkoutTracker.Entities.DTOs
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
+        public List<ExerciseDTO> Exercises { get; set; }
 
         public WorkoutCourseDTO() { }
 
         public WorkoutCourseDTO(WorkoutCourse workoutCourse) 
         {
-            Id = workoutCourse.Id;
+            Id = workoutCourse.WorkoutCourseId;
             Name = workoutCourse.Name;
             Description = workoutCourse.Description;
-        }
-
-        public WorkoutCourse MapToEntity()
-        {
-            return new WorkoutCourse
-            {
-                Id = Id,
-                Name = Name,
-                Description = Description
-            };
         }
     }
 }

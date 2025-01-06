@@ -9,33 +9,41 @@ namespace FitnessWorkoutTracker.Entities.Repository
     public class WorkoutCourseRepository : IWorkoutCourseRepository
     {
         private readonly LiteDbContext _dbContext;
+        private readonly ILiteCollection<WorkoutCourse> workoutCoursesCollection;
+        private readonly ILiteCollection<Exercise> exercisesCollection;
 
         public WorkoutCourseRepository(LiteDbContext dbContext)
         {
             _dbContext = dbContext;
+            workoutCoursesCollection = _dbContext.Context.GetCollection<WorkoutCourse>(DatabaseStructure.WorkoutCollection);
+            exercisesCollection = _dbContext.Context.GetCollection<Exercise>(DatabaseStructure.ExercisesCollection);
         }
+
+        public WorkoutCourseDTO GetWorkoutCourseById(int workoutId) =>
+            new WorkoutCourseDTO(workoutCoursesCollection.FindById(workoutId));
 
         public IList<WorkoutCourseDTO> GetAllWorkoutCourses()
         {
-            ILiteCollection<WorkoutCourse> workoutCoursesCollection = _dbContext.Context.GetCollection<WorkoutCourse>("WorkoutCourses");
             var courses = workoutCoursesCollection
                 .Query()
                 .ToList();
 
-            return courses.Select(w => new WorkoutCourseDTO(w)).ToList();
+            return courses.Select((WorkoutCourse w) => new WorkoutCourseDTO(w)).ToList();
 
         }
 
-        public WorkoutCourseDTO AddWorkoutCourse(WorkoutCourseDTO workoutCourse)
+        public WorkoutCourseDTO AddWorkoutCourse(CreateWorkoutCourseDTO workoutCourse)
         {
-            ILiteCollection<WorkoutCourse> workoutCourses = _dbContext.Context.GetCollection<WorkoutCourse>("WorkoutCourses");
-
             WorkoutCourse newWorkoutCourse = workoutCourse.MapToEntity();
-            workoutCourses.Insert(newWorkoutCourse);
+            exercisesCollection.InsertBulk(newWorkoutCourse.Exercises);
+            exercisesCollection.EnsureIndex((Exercise e) => e.Name);
 
-            workoutCourses.EnsureIndex(w => w.Name);
+            int newWorkoutCourseId = workoutCoursesCollection.Insert(newWorkoutCourse);
+            workoutCoursesCollection.EnsureIndex((WorkoutCourse w) => w.Name);
 
-            return workoutCourse;
+            WorkoutCourse workoutAdded = workoutCoursesCollection.FindById(newWorkoutCourseId);
+
+            return new WorkoutCourseDTO(workoutAdded);
         }
     }
 }

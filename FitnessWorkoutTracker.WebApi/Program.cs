@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 string cors = "allowOrigins";
 
 builder.Services.ConfigureAppSettings(builder.Configuration);
-builder.Services.CreateDatabaseTempFolderAndGrantPermissions(builder.Configuration);
+builder.Services.CreateDatabaseTempFolderAndGrantPermissions();
 builder.Services.AddApplicationRegistrations();
 
 builder.Services.AddControllers();
@@ -18,12 +18,16 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: cors,
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200");
+            policy.WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
         }
     );
 });
 
 var app = builder.Build();
+
+app.SeedApplicationData();
 
 if (app.Environment.IsDevelopment())
 {

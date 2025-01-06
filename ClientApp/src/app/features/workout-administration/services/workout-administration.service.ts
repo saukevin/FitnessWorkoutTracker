@@ -1,15 +1,18 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { catchError, Observable, throwError } from 'rxjs';
 import { WorkoutCourseDTO } from '../models/workoutCourseDTO';
 import { BaseHttpService } from '../../../shared/services/baseHttpService';
-import { WorkoutTypeEnum } from '../enum/workoutTypeEnum';
+import { WorkoutCourseTypeEnum } from '../enum/workoutTypeEnum';
 import { CreateWorkoutCourseDTO } from '../models/createWorkoutCourseDTO';
+import { AppSnackBarService } from '../../../shared/services/app-snack-bar.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WorkoutAdministrationService extends BaseHttpService {
+  private snackBarService: AppSnackBarService = inject(AppSnackBarService);
+
   constructor(private httpClient: HttpClient) {
     super();
   }
@@ -20,7 +23,7 @@ export class WorkoutAdministrationService extends BaseHttpService {
   }
 
   public getAllWorkoutCoursesByType(
-    workoutType: WorkoutTypeEnum
+    workoutType: WorkoutCourseTypeEnum
   ): Observable<WorkoutCourseDTO[]> {
     const url: string = `${this.baseUri}/WorkoutCourses?${workoutType}`;
     return this.httpClient.get<WorkoutCourseDTO[]>(url);
@@ -30,6 +33,13 @@ export class WorkoutAdministrationService extends BaseHttpService {
     newWorkoutCourse: CreateWorkoutCourseDTO
   ): Observable<WorkoutCourseDTO> {
     const url: string = `${this.baseUri}/WorkoutCourses`;
-    return this.httpClient.post<WorkoutCourseDTO>(url, newWorkoutCourse);
+    return this.httpClient.post<WorkoutCourseDTO>(url, newWorkoutCourse).pipe(
+      catchError((err: HttpErrorResponse) => {
+        this.snackBarService.open(
+          "C'è stato un'errore nella creazione del corso personalizzato."
+        );
+        return throwError(() => new Error());
+      })
+    );
   }
 }

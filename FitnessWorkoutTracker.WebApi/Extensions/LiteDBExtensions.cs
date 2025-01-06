@@ -1,4 +1,4 @@
-﻿using FitnessWorkoutTracker.Entities.SettingsEntities;
+﻿using FitnessWorkoutTracker.Entities.DbModel;
 using System.Security.AccessControl;
 using System.Security.Principal;
 
@@ -6,16 +6,17 @@ namespace FitnessWorkoutTracker.WebApi.Extensions
 {
     public static class LiteDBExtensions
     {
-        public static void CreateDatabaseTempFolderAndGrantPermissions(this IServiceCollection services, IConfiguration config)
+        public static void CreateDatabaseTempFolderAndGrantPermissions(this IServiceCollection services)
         {
             string directoryName = @"C:\FitnessWorkoutTracker";
 
-            if(!Directory.Exists(directoryName))
+            if (!Directory.Exists(directoryName))
             {
                 try
                 {
                     Directory.CreateDirectory(directoryName);
-                } catch(Exception ex) 
+                }
+                catch (Exception ex)
                 {
                     Console.WriteLine("Error while creating Database temp folder...");
                 }
@@ -30,7 +31,7 @@ namespace FitnessWorkoutTracker.WebApi.Extensions
             // Add the FileSystemAccessRule to the security settings. 
             dSecurity.AddAccessRule(
                 new FileSystemAccessRule(
-                    new SecurityIdentifier(WellKnownSidType.WorldSid, null), 
+                    new SecurityIdentifier(WellKnownSidType.WorldSid, null),
                     FileSystemRights.FullControl,
                     InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit,
                     PropagationFlags.NoPropagateInherit,
@@ -40,6 +41,15 @@ namespace FitnessWorkoutTracker.WebApi.Extensions
 
             // Set the access control
             dinfo.SetAccessControl(dSecurity);
+        }
+
+        public static void SeedApplicationData(this WebApplication app)
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var seeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
+                seeder.SeedData();
+            }
         }
     }
 }

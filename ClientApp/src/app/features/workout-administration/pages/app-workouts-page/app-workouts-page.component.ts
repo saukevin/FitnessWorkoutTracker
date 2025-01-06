@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { WorkoutAdministrationService } from '../../services/workout-administration.service';
 import { Observable } from 'rxjs';
 import { WorkoutCourseDTO } from '../../models/workoutCourseDTO';
-import { WorkoutTypeEnum } from '../../enum/workoutTypeEnum';
+import { WorkoutCourseTypeEnum } from '../../enum/workoutTypeEnum';
 
 @Component({
   selector: 'app-workouts-page',
@@ -26,7 +26,7 @@ export class AppWorkoutsPageComponent implements OnInit {
   private getAppWorkouts(): void {
     this.appWorkoutCourses$ =
       this.workoutAdministrationService.getAllWorkoutCoursesByType(
-        WorkoutTypeEnum.APP_WORKOUT
+        WorkoutCourseTypeEnum.APP_WORKOUT
       );
   }
 }

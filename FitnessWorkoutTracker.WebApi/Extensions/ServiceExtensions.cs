@@ -11,6 +11,7 @@ namespace FitnessWorkoutTracker.WebApi.Extensions
             services.AddTransient<IWorkoutCourseRepository, WorkoutCourseRepository>();
             services.AddTransient<IExerciseRepository, ExerciseRepository>();
             services.AddTransient<IExercisePerformanceRepository, ExercisePerformanceRepository>();
+            services.AddTransient<DataSeeder, DataSeeder>();
 
             services.AddSingleton<LiteDbContext, LiteDbContext>();
         }

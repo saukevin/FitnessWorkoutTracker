@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WorkoutCourseDTO } from '../../models/workoutCourseDTO';
 import { WorkoutAdministrationService } from '../../services/workout-administration.service';
-import { WorkoutTypeEnum } from '../../enum/workoutTypeEnum';
+import { WorkoutCourseTypeEnum } from '../../enum/workoutTypeEnum';
 import { CREATE_ROUTE } from '../../../../core/constants/routes';
 
 @Component({
@@ -31,7 +31,7 @@ export class UserWorkoutsPageComponent implements OnInit {
   private getAllUserWorkouts(): void {
     this.userWorkoutCourses$ =
       this.workoutAdministrationService.getAllWorkoutCoursesByType(
-        WorkoutTypeEnum.USER_WORKOUT
+        WorkoutCourseTypeEnum.USER_WORKOUT
       );
   }
 }

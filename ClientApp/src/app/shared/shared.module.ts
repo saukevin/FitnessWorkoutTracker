@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   exports: [
@@ -25,6 +26,7 @@ import { MatInputModule } from '@angular/material/input';
     MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSnackBarModule,
   ],
 })
 export class SharedModule {}
