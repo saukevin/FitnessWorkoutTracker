@@ -6,6 +6,9 @@ import { WorkoutCardComponent } from './components/workout-card/workout-card.com
 import { AppWorkoutsPageComponent } from './pages/app-workouts-page/app-workouts-page.component';
 import { CurrentWorkoutsPageComponent } from './pages/current-workouts-page/current-workouts-page.component';
 import { UserWorkoutsPageComponent } from './pages/user-workouts-page/user-workouts-page.component';
+import { CreateUserWorkoutPageComponent } from './pages/create-user-workout-page/create-user-workout-page.component';
+import { EditUserWorkoutPageComponent } from './pages/edit-user-workout-page/edit-user-workout-page.component';
+import { ExerciseFormCardComponent } from './components/exercise-form-card/exercise-form-card.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +17,9 @@ import { UserWorkoutsPageComponent } from './pages/user-workouts-page/user-worko
     AppWorkoutsPageComponent,
     CurrentWorkoutsPageComponent,
     UserWorkoutsPageComponent,
+    CreateUserWorkoutPageComponent,
+    EditUserWorkoutPageComponent,
+    ExerciseFormCardComponent,
   ],
   imports: [SharedModule, WorkoutAdministrationRoutingModule],
 })

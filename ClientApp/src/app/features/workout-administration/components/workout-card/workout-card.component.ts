@@ -8,5 +8,5 @@ import { WorkoutCourseDTO } from '../../models/workoutCourseDTO';
   styleUrl: './workout-card.component.scss',
 })
 export class WorkoutCardComponent {
-  @Input() course: WorkoutCourseDTO;
+  @Input() workoutCourse: WorkoutCourseDTO;
 }

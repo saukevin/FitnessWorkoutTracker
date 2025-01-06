@@ -1,1 +1,5 @@
-<p>app-workouts-page works!</p>
+<div class="courses-wrapper">
+  <ng-container *ngFor="let appWorkoutCourse of appWorkoutCourses$ | async">
+    <app-workout-card [workoutCourse]="appWorkoutCourse"></app-workout-card>
+  </ng-container>
+</div>

@@ -1,5 +1,5 @@
 <div class="navbar">
-  <div class="logo-wrapper" (click)="goToHome()">
+  <div class="logo-wrapper" [routerLink]="homeRoute">
     <span>Fitness Workout Tracker</span>
   </div>
 
@@ -7,14 +7,14 @@
     Gestisci Allenamenti
   </button>
   <mat-menu #workoutMenu="matMenu">
-    <a mat-menu-item (click)="goToAppWorkouts()">
+    <a mat-menu-item [routerLink]="appWorkoutsRoute">
       <span>I nostri allenamenti</span>
     </a>
-    <a mat-menu-item (click)="goToCurrentWorkouts()">
+    <a mat-menu-item [routerLink]="currentWorkoutsRoute">
       <span>Allenamenti in corso</span>
     </a>
-    <a mat-menu-item (click)="goToAddEditWorkouts()">
-      <span>Crea il tuo allenamento</span>
+    <a mat-menu-item [routerLink]="userWokroutsRoute">
+      <span>Allenamenti personalizzati</span>
     </a>
   </mat-menu>
 </div>

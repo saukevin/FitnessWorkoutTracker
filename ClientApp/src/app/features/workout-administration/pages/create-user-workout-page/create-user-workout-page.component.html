@@ -1,0 +1,58 @@
+<h2>Nuovo allenamento personalizzato</h2>
+<form [formGroup]="form">
+  <div class="workout-course-wrapper">
+    <mat-form-field class="width-500">
+      <mat-label>Nome</mat-label>
+      <input
+        matInput
+        placeholder="Nome allenamento..."
+        required
+        formControlName="name"
+        [maxLength]="30"
+      />
+    </mat-form-field>
+    <mat-form-field class="width-500">
+      <mat-label>Descrizione</mat-label>
+      <textarea
+        matInput
+        placeholder="Descrizione allenamento..."
+        formControlName="description"
+        [rows]="3"
+        [maxLength]="150"
+      >
+      </textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="exercises-header">
+    <h3>Lista di esercizi</h3>
+    <button mat-button (click)="addNewExercise()">
+      <mat-icon class="m-0">add</mat-icon>
+    </button>
+  </div>
+  <div class="exercises-list p-5">
+    <ng-container
+      *ngFor="let exerciseFormGroup of exerciseFormGroups; let i = index"
+    >
+      <app-exercise-form-card
+        [form]="exerciseFormGroup"
+        (onDelete)="deleteExercise(i)"
+      ></app-exercise-form-card>
+    </ng-container>
+  </div>
+</form>
+<div class="action-buttons">
+  <a mat-button [routerLink]="userWorkoutsRoute">
+    <mat-icon>arrow_back</mat-icon>
+    Indietro
+  </a>
+
+  <button
+    mat-button
+    (click)="createWorkoutCourse()"
+    [disabled]="isCreateButtonDisabled"
+  >
+    <mat-icon>add</mat-icon>
+    Crea allenamento
+  </button>
+</div>
