@@ -1,3 +1,28 @@
 <mat-card appearance="outlined">
-  <mat-card-content>Simple card</mat-card-content>
+  <mat-card-content>
+    <p>
+      <strong>{{ workoutCourse.name }}</strong>
+    </p>
+    <p>
+      <span *ngIf="workoutCourse.description; else noDescription">
+        {{ workoutCourse.description }}
+      </span>
+      <ng-template #noDescription>
+        <i>Questo corso non ha alcuna descrizione</i>
+      </ng-template>
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <ng-container>
+      <a mat-button [routerLink]="startWorkoutRoute">Inizia</a>
+    </ng-container>
+    <ng-template></ng-template>
+    <ng-container
+      *ngIf="
+        workoutCourse.workoutCourseType === WORKOUT_COURSE_TYPE.USER_WORKOUT
+      "
+    >
+      <a mat-button [routerLink]="editUserWorkoutRoute">Modifica</a>
+    </ng-container>
+  </mat-card-actions>
 </mat-card>

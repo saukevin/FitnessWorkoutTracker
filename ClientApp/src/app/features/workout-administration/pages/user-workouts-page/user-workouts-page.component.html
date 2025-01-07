@@ -4,5 +4,7 @@
     Crea il tuo allenamento
   </a>
   <mat-divider></mat-divider>
-  <div class="user-workouts-list"></div>
+  <app-workout-courses-list
+    [workoutCourses]="(userWorkoutCourses$ | async) || []"
+  ></app-workout-courses-list>
 </div>
