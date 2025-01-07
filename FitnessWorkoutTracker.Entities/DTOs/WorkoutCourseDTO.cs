@@ -16,6 +16,11 @@ namespace FitnessWorkoutTracker.Entities.DTOs
             Id = workoutCourse.WorkoutCourseId;
             Name = workoutCourse.Name;
             Description = workoutCourse.Description;
+
+            if(workoutCourse.Exercises != null)
+                Exercises = workoutCourse.Exercises
+                    .Select((Exercise e) => new ExerciseDTO(e))
+                    .ToList();
         }
     }
 }

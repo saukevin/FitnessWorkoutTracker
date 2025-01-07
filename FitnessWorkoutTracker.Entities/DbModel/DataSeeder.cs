@@ -34,7 +34,8 @@ namespace FitnessWorkoutTracker.Entities.DbModel
                     {
                         Name = "Upper Body Workout",
                         Description = "Test yourself with the most proficient workout for the upper body!",
-                        Exercises = upperBodyExercises
+                        Exercises = upperBodyExercises,
+                        WorkoutCourseType = WorkoutCourseType.APP_WORKOUT
                     }
                 };
                 workoutCoursesCollection.InsertBulk(workoutCourses);

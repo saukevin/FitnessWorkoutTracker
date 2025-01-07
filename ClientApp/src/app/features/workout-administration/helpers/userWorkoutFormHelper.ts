@@ -1,6 +1,7 @@
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateWorkoutCourseDTO } from '../models/createWorkoutCourseDTO';
 import { CreateExerciseDTO } from '../models/createExerciseDTO';
+import { WorkoutCourseTypeEnum } from '../enum/workoutTypeEnum';
 
 export class UserWorkoutFormHelper {
   public static createNewWorkoutCourseForm(): FormGroup {
@@ -50,6 +51,7 @@ export class UserWorkoutFormHelper {
       name: form.get('name')!.value,
       description: form.get('description')!.value,
       createExercises: exercises,
+      workoutCourseType: WorkoutCourseTypeEnum.USER_WORKOUT,
     } as CreateWorkoutCourseDTO;
   }
 }

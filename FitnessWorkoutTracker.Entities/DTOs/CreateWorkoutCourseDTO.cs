@@ -6,13 +6,13 @@ namespace FitnessWorkoutTracker.Entities.DTOs
     {
         public string Name { get; set; }
         public string? Description { get; set; }
+        public WorkoutCourseType WorkoutCourseType { get; set; }
         public List<CreateExerciseDTO> CreateExercises { get; set; }
 
         public CreateWorkoutCourseDTO() { }
 
         public WorkoutCourse MapToEntity()
         {
-
             List<Exercise> exercises = CreateExercises != null
                 ? CreateExercises
                     .Select((CreateExerciseDTO e) => e.MapToEntity())
@@ -23,7 +23,8 @@ namespace FitnessWorkoutTracker.Entities.DTOs
             {
                 Name = Name,
                 Description = Description,
-                Exercises = exercises
+                Exercises = exercises,
+                WorkoutCourseType = WorkoutCourseType
             };
         }
     }

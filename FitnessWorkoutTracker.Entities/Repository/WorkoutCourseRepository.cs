@@ -18,18 +18,31 @@ namespace FitnessWorkoutTracker.Entities.Repository
             workoutCoursesCollection = _dbContext.Context.GetCollection<WorkoutCourse>(DatabaseStructure.WorkoutCollection);
             exercisesCollection = _dbContext.Context.GetCollection<Exercise>(DatabaseStructure.ExercisesCollection);
         }
-
         public WorkoutCourseDTO GetWorkoutCourseById(int workoutId) =>
             new WorkoutCourseDTO(workoutCoursesCollection.FindById(workoutId));
 
+        public WorkoutCourseDTO GetWorkoutCourseByIdWithReferences(int workoutId) =>
+            new WorkoutCourseDTO(workoutCoursesCollection
+                .Include((WorkoutCourse w) => w.Exercises)
+                .FindById(workoutId));
+
         public IList<WorkoutCourseDTO> GetAllWorkoutCourses()
         {
-            var courses = workoutCoursesCollection
+            IList<WorkoutCourse> workoutCourses = workoutCoursesCollection
                 .Query()
                 .ToList();
 
-            return courses.Select((WorkoutCourse w) => new WorkoutCourseDTO(w)).ToList();
+            return workoutCourses.Select((WorkoutCourse w) => new WorkoutCourseDTO(w)).ToList();
+        }
 
+        public IList<WorkoutCourseDTO> GetAllWorkoutCoursesByType(WorkoutCourseType workoutCourseType)
+        {
+            IList<WorkoutCourse> workoutCourses = workoutCoursesCollection
+                .Query()
+                .Where((WorkoutCourse w) => w.WorkoutCourseType == workoutCourseType)
+                .ToList();
+
+            return workoutCourses.Select((WorkoutCourse w) => new WorkoutCourseDTO(w)).ToList();
         }
 
         public WorkoutCourseDTO AddWorkoutCourse(CreateWorkoutCourseDTO workoutCourse)

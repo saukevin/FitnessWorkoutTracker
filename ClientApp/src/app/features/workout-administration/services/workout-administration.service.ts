@@ -25,7 +25,7 @@ export class WorkoutAdministrationService extends BaseHttpService {
   public getAllWorkoutCoursesByType(
     workoutType: WorkoutCourseTypeEnum
   ): Observable<WorkoutCourseDTO[]> {
-    const url: string = `${this.baseUri}/WorkoutCourses?${workoutType}`;
+    const url: string = `${this.baseUri}/WorkoutCourses/byType?workoutCourseType=${workoutType}`;
     return this.httpClient.get<WorkoutCourseDTO[]>(url);
   }
 
