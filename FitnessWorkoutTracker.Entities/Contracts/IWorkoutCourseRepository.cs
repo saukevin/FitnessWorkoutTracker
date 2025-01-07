@@ -10,5 +10,6 @@ namespace FitnessWorkoutTracker.Entities.Contracts
         IList<WorkoutCourseDTO> GetAllWorkoutCourses();
         IList<WorkoutCourseDTO> GetAllWorkoutCoursesByType(WorkoutCourseType workoutCourseType);
         WorkoutCourseDTO AddWorkoutCourse(CreateWorkoutCourseDTO workoutCourse);
+        WorkoutCourseDTO UpdateWorkoutCourse(UpdateWorkoutCourseDTO workoutCourse);
     }
 }

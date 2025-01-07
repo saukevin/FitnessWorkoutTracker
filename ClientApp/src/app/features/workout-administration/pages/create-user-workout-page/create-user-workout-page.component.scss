@@ -1,25 +1,3 @@
-.workout-course-wrapper,
-.exercises-header,
-.exercises-list {
-  display: flex;
-  gap: 10px;
-}
-
-.workout-course-wrapper {
-  align-items: flex-start;
-  flex-direction: column;
-}
-
-.exercises-header {
-  align-items: center;
-}
-
-.exercises-list {
-  flex-wrap: wrap;
-  height: 60vh;
-  overflow: auto;
-}
-
 .action-buttons {
   display: flex;
   justify-content: space-between;

@@ -1,12 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { USER_WORKOUTS_ROUTE } from '../../../../core/constants/routes';
+import {
+  USER_WORKOUTS_ROUTE,
+  WORKOUT_ADMINISTRATION_ROUTE,
+} from '../../../../core/constants/routes';
 import { WorkoutAdministrationService } from '../../services/workout-administration.service';
-import { FormArray, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { UserWorkoutFormHelper } from '../../helpers/userWorkoutFormHelper';
 import { CreateWorkoutCourseDTO } from '../../models/createWorkoutCourseDTO';
 import { finalize } from 'rxjs';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { AppSnackBarService } from '../../../../shared/services/app-snack-bar.service';
 
 @Component({
   selector: 'app-create-user-workout-page',
@@ -23,17 +26,12 @@ export class CreateUserWorkoutPageComponent implements OnInit {
     return this.form.invalid || this.loading;
   }
 
-  get exerciseFormGroups(): FormGroup[] {
-    const array: FormArray = this.form.get('exercises') as FormArray;
-    return array.controls as FormGroup[];
-  }
-
   form: FormGroup;
 
   loading: boolean = false;
 
   private router: Router = inject(Router);
-  private snackBar: MatSnackBar = inject(MatSnackBar);
+  private snackBar: AppSnackBarService = inject(AppSnackBarService);
   private workoutAdministrationService: WorkoutAdministrationService = inject(
     WorkoutAdministrationService
   );
@@ -42,16 +40,6 @@ export class CreateUserWorkoutPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = UserWorkoutFormHelper.createNewWorkoutCourseForm();
-  }
-
-  addNewExercise(): void {
-    const newExerciseFormGroup: FormGroup =
-      UserWorkoutFormHelper.createNewExerciseForm();
-    (this.form.get('exercises') as FormArray).push(newExerciseFormGroup);
-  }
-
-  deleteExercise(exerciseFormIndex: number): void {
-    (this.form.get('exercises') as FormArray).removeAt(exerciseFormIndex);
   }
 
   createWorkoutCourse(): void {
@@ -64,7 +52,9 @@ export class CreateUserWorkoutPageComponent implements OnInit {
       .subscribe({
         next: () => {
           this.snackBar.open('Corso di allenamento personalizzato creato!');
-          this.router.navigate([this.userWorkoutsRoute]);
+          this.router.navigate([
+            `/${WORKOUT_ADMINISTRATION_ROUTE}/${USER_WORKOUTS_ROUTE}`,
+          ]);
         },
       });
   }

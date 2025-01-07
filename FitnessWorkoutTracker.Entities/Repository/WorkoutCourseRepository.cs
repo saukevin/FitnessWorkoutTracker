@@ -22,9 +22,7 @@ namespace FitnessWorkoutTracker.Entities.Repository
             new WorkoutCourseDTO(workoutCoursesCollection.FindById(workoutId));
 
         public WorkoutCourseDTO GetWorkoutCourseByIdWithReferences(int workoutId) =>
-            new WorkoutCourseDTO(workoutCoursesCollection
-                .Include((WorkoutCourse w) => w.Exercises)
-                .FindById(workoutId));
+            new WorkoutCourseDTO(GetWorkoutCourseByIdWithReferencesQuery(workoutId));
 
         public IList<WorkoutCourseDTO> GetAllWorkoutCourses()
         {
@@ -58,5 +56,25 @@ namespace FitnessWorkoutTracker.Entities.Repository
 
             return new WorkoutCourseDTO(workoutAdded);
         }
+
+        public WorkoutCourseDTO UpdateWorkoutCourse(UpdateWorkoutCourseDTO workoutCourse)
+        {
+            WorkoutCourse workoutToUpdate = GetWorkoutCourseByIdWithReferencesQuery(workoutCourse.WorkoutCourseId);
+            WorkoutCourse updated = workoutCourse.MapToUpdateEntity(workoutToUpdate);
+
+            foreach (Exercise e in updated.Exercises)
+            {
+                exercisesCollection.Upsert(e);
+            }
+
+            workoutCoursesCollection.Update(updated);
+
+            return new WorkoutCourseDTO(updated);
+        }
+
+        private WorkoutCourse GetWorkoutCourseByIdWithReferencesQuery(int workoutCourseId) =>
+            workoutCoursesCollection
+                .Include((WorkoutCourse w) => w.Exercises)
+                .FindById(workoutCourseId);
     }
 }

@@ -31,7 +31,7 @@ const routes: Routes = [
     component: CreateUserWorkoutPageComponent,
   },
   {
-    path: `${USER_WORKOUTS_ROUTE}/${EDIT_ROUTE}/:id`,
+    path: `${USER_WORKOUTS_ROUTE}/${EDIT_ROUTE}/:workoutId`,
     component: EditUserWorkoutPageComponent,
   },
 ];

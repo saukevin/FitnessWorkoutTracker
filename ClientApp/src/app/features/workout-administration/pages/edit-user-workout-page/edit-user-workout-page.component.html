@@ -1,1 +1,22 @@
-<p>edit-user-workout-page works!</p>
+<ng-container *ngIf="workoutCourse$ | async; let workoutCourse">
+  <h2>Modifica allenamento</h2>
+  <ng-container *ngIf="!!form">
+    <app-add-edit-workout-form [form]="form"></app-add-edit-workout-form>
+  </ng-container>
+
+  <div class="action-buttons">
+    <a mat-button [routerLink]="userWorkoutsRoute">
+      <mat-icon>arrow_back</mat-icon>
+      Indietro
+    </a>
+
+    <button
+      mat-button
+      (click)="saveWorkoutCourse()"
+      [disabled]="isSaveButtonDisabled"
+    >
+      <mat-icon>save</mat-icon>
+      Salva
+    </button>
+  </div>
+</ng-container>
