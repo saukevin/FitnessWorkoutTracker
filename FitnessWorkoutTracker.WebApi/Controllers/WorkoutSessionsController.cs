@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FitnessWorkoutTracker.WebApi.Controllers
 {
-    [Route("api/{workoutId}/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class WorkoutSessionsController : ControllerBase
     {
@@ -30,8 +30,17 @@ namespace FitnessWorkoutTracker.WebApi.Controllers
             return Ok(workoutSession);
         }
 
+        [HttpGet]
+        [Route("byCompleted")]
+        public ActionResult<WorkoutSessionDTO> GetAllByCompleted([FromQuery] bool completed) 
+        {
+            List<WorkoutSessionDTO> workoutSessions = workoutSessionRepository.GetAllByCompleted(completed);
+
+            return Ok(workoutSessions);
+        }
+
         [HttpPost]
-        public ActionResult<WorkoutSessionDTO> CreateWorkoutSession([FromRoute] int workoutId) 
+        public ActionResult<WorkoutSessionDTO> CreateWorkoutSession([FromQuery] int workoutId) 
         {
             WorkoutDTO workout = workoutRepository.GetWorkoutById(workoutId);
 
@@ -41,6 +50,20 @@ namespace FitnessWorkoutTracker.WebApi.Controllers
             WorkoutSessionDTO mewWorkoutSession = workoutSessionRepository.CreateWorkoutSession(workoutId);
 
             return Ok(mewWorkoutSession);
+        }
+
+        [HttpDelete]
+        [Route("{workoutSessionId}")]
+        public ActionResult DeleteById([FromRoute] int workoutSessionId) 
+        {
+            WorkoutSessionDTO workoutSession = workoutSessionRepository.GetById(workoutSessionId);
+
+            if (workoutSession == null)
+                return NotFound();
+
+            workoutSessionRepository.DeleteById(workoutSessionId);
+
+            return Ok();
         }
     }
 }

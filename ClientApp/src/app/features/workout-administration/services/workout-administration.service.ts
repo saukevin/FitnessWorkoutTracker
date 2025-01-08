@@ -47,7 +47,9 @@ export class WorkoutAdministrationService extends BaseHttpService {
     );
   }
 
-  updateWorkout(workoutToUpdate: UpdateWorkoutDTO): Observable<WorkoutDTO> {
+  public updateWorkout(
+    workoutToUpdate: UpdateWorkoutDTO
+  ): Observable<WorkoutDTO> {
     const url: string = `${this.baseUri}/Workouts/${workoutToUpdate.workoutId}`;
     return this.httpClient.put<WorkoutDTO>(url, workoutToUpdate).pipe(
       catchError((err: HttpErrorResponse) => {

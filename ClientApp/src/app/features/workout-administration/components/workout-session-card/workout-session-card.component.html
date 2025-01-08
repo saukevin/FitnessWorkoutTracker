@@ -1,0 +1,19 @@
+<mat-card appearance="outlined">
+  <mat-card-content>
+    <p>
+      <strong>{{ workoutSession.workoutName }}</strong>
+    </p>
+    <p>
+      <strong>Iniziato il:</strong>
+    </p>
+    <p>
+      {{ workoutSession.startDate | date : "dd/MM/yyyy" }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <!-- TODO continue exerxies? -->
+    <!-- <button mat-button>Continua</button> -->
+
+    <button mat-button (click)="onDelete.emit()">Elimina</button>
+  </mat-card-actions>
+</mat-card>

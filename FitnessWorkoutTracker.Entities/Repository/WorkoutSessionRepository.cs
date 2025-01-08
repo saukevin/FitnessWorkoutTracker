@@ -30,6 +30,19 @@ namespace FitnessWorkoutTracker.Entities.Repository
             return new WorkoutSessionDTO(workoutSession);
         }
 
+        public List<WorkoutSessionDTO> GetAllByCompleted(bool completed) 
+        {
+            IList<WorkoutSession> workoutSessions = workoutSessionsCollection
+                .Include((WorkoutSession w) => w.ExerciseSessions)
+                .Query()
+                .Where((WorkoutSession w) => w.IsCompleted == completed)
+                .ToList();
+
+            return workoutSessions
+                .Select((WorkoutSession w) => new WorkoutSessionDTO(w))
+                .ToList();
+        }
+
         public WorkoutSessionDTO CreateWorkoutSession(int workoutId) 
         {
             Workout workout = workoutCollection
@@ -63,6 +76,19 @@ namespace FitnessWorkoutTracker.Entities.Repository
                 .FindById(newWorkoutSessionId);
 
             return new WorkoutSessionDTO(workoutSessionAdded);
+        }
+
+        public void DeleteById(int workoutSessionId) 
+        {
+            WorkoutSession workoutSession = workoutSessionsCollection
+               .Include((WorkoutSession w) => w.ExerciseSessions)
+               .FindById(workoutSessionId);
+
+            IEnumerable<int> exerciseSessionIds = workoutSession.ExerciseSessions
+                .Select((ExerciseSession e) => e.ExerciseSessionId);
+
+            exerciseSessionsCollection.DeleteMany((ExerciseSession e) => exerciseSessionIds.Contains(e.ExerciseSessionId));
+            workoutSessionsCollection.Delete(workoutSessionId);
         }
     }
 }

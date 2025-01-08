@@ -6,5 +6,7 @@ namespace FitnessWorkoutTracker.Entities.Contracts
     {
         WorkoutSessionDTO GetById(int workoutSessionId);
         WorkoutSessionDTO CreateWorkoutSession(int workoutId);
+        List<WorkoutSessionDTO> GetAllByCompleted(bool completed);
+        void DeleteById(int workoutSessionId);
     }
 }

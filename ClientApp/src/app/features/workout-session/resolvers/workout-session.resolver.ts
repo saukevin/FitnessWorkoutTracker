@@ -15,12 +15,11 @@ export const workoutSessionResolver: ResolveFn<WorkoutSessionDTO> = (
   const workoutSessionCacheService: WorkoutSessionCacheService = inject(
     WorkoutSessionCacheService
   );
-  const workoutId: number = Number(route.paramMap.get('workoutId'));
   const workoutSessionId: number = Number(
     route.paramMap.get('workoutSessionId')
   );
   return workoutSessionService
-    .getWorkoutSessionById(workoutId, workoutSessionId)
+    .getWorkoutSessionById(workoutSessionId)
     .pipe(
       tap((workoutSession: WorkoutSessionDTO) =>
         workoutSessionCacheService.setNewWorkoutSession(workoutSession)

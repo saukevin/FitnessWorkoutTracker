@@ -34,6 +34,7 @@ namespace FitnessWorkoutTracker.Entities.Repository
             if (workoutSession.ExerciseSessions.All((ExerciseSession e) => e.IsCompleted)) 
             {
                 workoutSession.IsCompleted = true;
+                workoutSession.EndDate = DateOnly.FromDateTime(DateTime.Now);
                 workoutSessionsCollection.Update(workoutSession);
             }
         }

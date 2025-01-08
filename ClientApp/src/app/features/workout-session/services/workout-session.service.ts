@@ -14,10 +14,9 @@ export class WorkoutSessionService extends BaseHttpService {
   }
 
   public getWorkoutSessionById(
-    workoutId: number,
-    wokroutSessionId: number
+    workoutSessionId: number
   ): Observable<WorkoutSessionDTO> {
-    const url: string = `${this.baseUri}/${workoutId}/WorkoutSessions/${wokroutSessionId}`;
+    const url: string = `${this.baseUri}/WorkoutSessions/${workoutSessionId}`;
     return this.httpClient.get<WorkoutSessionDTO>(url);
   }
 
@@ -26,10 +25,17 @@ export class WorkoutSessionService extends BaseHttpService {
     return this.httpClient.get<ExerciseDTO[]>(url);
   }
 
+  public getAllByCompleted(
+    completed: boolean
+  ): Observable<WorkoutSessionDTO[]> {
+    const url: string = `${this.baseUri}/WorkoutSessions/byCompleted?completed=${completed}`;
+    return this.httpClient.get<WorkoutSessionDTO[]>(url);
+  }
+
   public createNewWorkoutSession(
     workoutId: number
   ): Observable<WorkoutSessionDTO> {
-    const url: string = `${this.baseUri}/${workoutId}/WorkoutSessions`;
+    const url: string = `${this.baseUri}/WorkoutSessions?workoutId=${workoutId}`;
     return this.httpClient.post<WorkoutSessionDTO>(url, null);
   }
 
@@ -41,5 +47,10 @@ export class WorkoutSessionService extends BaseHttpService {
   ): Observable<void> {
     const url: string = `${this.baseUri}/${workoutId}/WorkoutSessions/${workoutSessionId}/Exercises/${exerciseId}/ExerciseSessions/${exerciseSession.exerciseSessionId}`;
     return this.httpClient.put<void>(url, exerciseSession);
+  }
+
+  public deleteWorkoutSessionById(workoutSessionId: number): Observable<void> {
+    const url: string = `${this.baseUri}/WorkoutSessions/${workoutSessionId}`;
+    return this.httpClient.delete<void>(url);
   }
 }

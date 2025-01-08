@@ -1,1 +1,10 @@
-<p>current-workouts-page works!</p>
+<h2>Allenamenti in corso</h2>
+
+<div class="workout-sessions">
+  <ng-container *ngFor="let workoutSession of workoutSessions$ | async">
+    <app-workout-session-card
+      [workoutSession]="workoutSession"
+      (onDelete)="deleteWorkoutSession(workoutSession.workoutSessionId)"
+    ></app-workout-session-card>
+  </ng-container>
+</div>
