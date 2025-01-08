@@ -1,0 +1,5 @@
+<h2>{{ workoutName }}</h2>
+
+<ng-container *ngIf="!!exercises">
+  <app-exercise-list [exercises]="exercises"></app-exercise-list>
+</ng-container>

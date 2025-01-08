@@ -1,0 +1,34 @@
+<ng-container *ngIf="!!currentExerciseSession">
+  <h2>{{ currentExerciseSession.exercise.name }}</h2>
+
+  <ng-container *ngIf="currentExerciseSession.exercise.description">
+    <p>
+      <strong>Come svolgere l'esercizio</strong>
+    </p>
+    <p>
+      {{ currentExerciseSession.exercise.description }}
+    </p>
+  </ng-container>
+
+  <p>
+    <strong>Numero di set</strong>
+  </p>
+  <p>{{ currentExerciseSession.exercise.sets }}</p>
+
+  <p>
+    <strong>Numero di reps</strong>
+  </p>
+  <p>{{ currentExerciseSession.exercise.repetitions }}</p>
+
+  <ng-container *ngIf="currentExerciseSession.exercise.load">
+    <p>
+      <strong>Carico</strong>
+    </p>
+    <p>{{ currentExerciseSession.exercise.load }}kg</p>
+  </ng-container>
+
+  <app-exercise-session-actions
+    (onCompleteCurrentExercise)="completeCurrentExercise($event)"
+    (onStartNextExercise)="startNextExercise()"
+  ></app-exercise-session-actions>
+</ng-container>

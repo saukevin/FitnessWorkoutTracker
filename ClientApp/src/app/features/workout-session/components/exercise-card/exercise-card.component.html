@@ -1,0 +1,30 @@
+<mat-card appearance="outlined">
+  <mat-card-content>
+    <p>
+      <strong>{{ exercise.name }}</strong>
+    </p>
+    <p>
+      <span *ngIf="exercise.description; else noDescription">
+        {{ exercise.description }}
+      </span>
+      <ng-template #noDescription>
+        <i>Questo esercizio non ha alcuna descrizione</i>
+      </ng-template>
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <ng-container
+      *ngIf="
+        workoutSessionCacheService.isWorkoutSessionExerciseCompleted(
+          exercise.exerciseId
+        ) | async;
+        else notCompleted
+      "
+    >
+      <button mat-button disabled>Completato</button>
+    </ng-container>
+    <ng-template #notCompleted>
+      <a mat-button [routerLink]="exerciseSessionRoute">Inizia</a>
+    </ng-template>
+  </mat-card-actions>
+</mat-card>

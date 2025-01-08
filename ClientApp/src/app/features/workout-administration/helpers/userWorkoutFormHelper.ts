@@ -1,13 +1,13 @@
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CreateWorkoutCourseDTO } from '../models/createWorkoutCourseDTO';
+import { CreateWorkoutDTO } from '../models/createWorkoutDTO';
 import { CreateExerciseDTO } from '../models/createExerciseDTO';
-import { WorkoutCourseDTO } from '../models/workoutCourseDTO';
+import { WorkoutDTO } from '../models/workoutDTO';
 import { ExerciseDTO } from '../models/exerciseDTO';
-import { UpdateWorkoutCourseDTO } from '../models/updateWorkoutCourseDTO';
+import { UpdateWorkoutDTO } from '../models/updateWorkoutDTO';
 import { UpdateExerciseDTO } from '../models/updateExerciseDTO';
 
 export class UserWorkoutFormHelper {
-  public static createNewWorkoutCourseForm(): FormGroup {
+  public static createNewWorkoutForm(): FormGroup {
     return new FormGroup({
       name: new FormControl(null, [
         Validators.required,
@@ -31,9 +31,7 @@ export class UserWorkoutFormHelper {
     });
   }
 
-  public static mapFormToCreateWorkoutCourseDTO(
-    form: FormGroup
-  ): CreateWorkoutCourseDTO {
+  public static mapFormToCreateWorkoutDTO(form: FormGroup): CreateWorkoutDTO {
     const exercisesForms: FormGroup[] = (form.get('exercises') as FormArray)
       .controls as FormGroup[];
 
@@ -54,31 +52,27 @@ export class UserWorkoutFormHelper {
       name: form.get('name')!.value,
       description: form.get('description')!.value,
       createExercises: exercises,
-    } as CreateWorkoutCourseDTO;
+    } as CreateWorkoutDTO;
   }
 
-  public static createEditWorkoutCourseForm(
-    workoutCourse: WorkoutCourseDTO
-  ): FormGroup {
+  public static createEditWorkoutForm(workout: WorkoutDTO): FormGroup {
     return new FormGroup({
-      id: new FormControl(workoutCourse.id, Validators.required),
-      name: new FormControl(workoutCourse.name, [
+      id: new FormControl(workout.id, Validators.required),
+      name: new FormControl(workout.name, [
         Validators.required,
         Validators.maxLength(30),
       ]),
       description: new FormControl(
-        workoutCourse.description,
+        workout.description,
         Validators.maxLength(150)
       ),
       exercises: new FormArray(
-        this.createEditExercisesForms(workoutCourse.exercises)
+        this.createEditExercisesForms(workout.exercises)
       ),
     });
   }
 
-  public static mapFormToEditWorkoutCourseDTO(
-    form: FormGroup
-  ): UpdateWorkoutCourseDTO {
+  public static mapFormToEditWorkoutDTO(form: FormGroup): UpdateWorkoutDTO {
     const exercisesForms: FormGroup[] = (form.get('exercises') as FormArray)
       .controls as FormGroup[];
 
@@ -99,11 +93,11 @@ export class UserWorkoutFormHelper {
     );
 
     return {
-      workoutCourseId: form.get('id')!.value,
+      workoutId: form.get('id')!.value,
       name: form.get('name')!.value,
       description: form.get('description')!.value,
       updateExercises: exercises,
-    } as UpdateWorkoutCourseDTO;
+    } as UpdateWorkoutDTO;
   }
 
   private static createEditExercisesForms(
@@ -112,7 +106,7 @@ export class UserWorkoutFormHelper {
     return exercises.map(
       (e: ExerciseDTO) =>
         new FormGroup({
-          id: new FormControl(e.id),
+          id: new FormControl(e.exerciseId),
           name: new FormControl(e.name, [
             Validators.required,
             Validators.maxLength(30),

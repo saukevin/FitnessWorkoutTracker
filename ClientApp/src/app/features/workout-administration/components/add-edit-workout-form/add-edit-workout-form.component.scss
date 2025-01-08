@@ -1,11 +1,11 @@
-.workout-course-wrapper,
+.workout-wrapper,
 .exercises-header,
 .exercises-list {
   display: flex;
   gap: 10px;
 }
 
-.workout-course-wrapper {
+.workout-wrapper {
   align-items: flex-start;
   flex-direction: column;
 }

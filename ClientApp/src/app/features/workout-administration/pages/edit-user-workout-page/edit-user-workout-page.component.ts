@@ -2,14 +2,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WorkoutAdministrationService } from '../../services/workout-administration.service';
 import { finalize, Observable, tap } from 'rxjs';
-import { WorkoutCourseDTO } from '../../models/workoutCourseDTO';
+import { WorkoutDTO } from '../../models/workoutDTO';
 import { FormGroup } from '@angular/forms';
 import { UserWorkoutFormHelper } from '../../helpers/userWorkoutFormHelper';
 import {
   USER_WORKOUTS_ROUTE,
   WORKOUT_ADMINISTRATION_ROUTE,
 } from '../../../../core/constants/routes';
-import { UpdateWorkoutCourseDTO } from '../../models/updateWorkoutCourseDTO';
+import { UpdateWorkoutDTO } from '../../models/updateWorkoutDTO';
 import { AppSnackBarService } from '../../../../shared/services/app-snack-bar.service';
 
 @Component({
@@ -27,12 +27,12 @@ export class EditUserWorkoutPageComponent implements OnInit {
     return this.form.invalid || this.loading;
   }
 
-  workoutCourse$: Observable<WorkoutCourseDTO>;
+  workout$: Observable<WorkoutDTO>;
   form: FormGroup;
 
   loading: boolean = false;
 
-  private workoutCourseId: number;
+  private workoutId: number;
 
   private route: ActivatedRoute = inject(ActivatedRoute);
   private router: Router = inject(Router);
@@ -44,18 +44,16 @@ export class EditUserWorkoutPageComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.workoutCourseId = Number(
-      this.route.snapshot.paramMap.get('workoutId')
-    );
-    this.getWorkoutCourseAndCreateForm();
+    this.workoutId = Number(this.route.snapshot.paramMap.get('workoutId'));
+    this.getWorkoutAndCreateForm();
   }
 
-  saveWorkoutCourse(): void {
+  saveWorkout(): void {
     this.loading = true;
-    const workoutToUpdate: UpdateWorkoutCourseDTO =
-      UserWorkoutFormHelper.mapFormToEditWorkoutCourseDTO(this.form);
+    const workoutToUpdate: UpdateWorkoutDTO =
+      UserWorkoutFormHelper.mapFormToEditWorkoutDTO(this.form);
     this.workoutAdministrationService
-      .updateWorkoutCourse(workoutToUpdate)
+      .updateWorkout(workoutToUpdate)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: () => {
@@ -67,14 +65,13 @@ export class EditUserWorkoutPageComponent implements OnInit {
       });
   }
 
-  private getWorkoutCourseAndCreateForm(): void {
-    this.workoutCourse$ = this.workoutAdministrationService
-      .getWorkoutCourseById(this.workoutCourseId)
+  private getWorkoutAndCreateForm(): void {
+    this.workout$ = this.workoutAdministrationService
+      .getWorkoutById(this.workoutId)
       .pipe(
         tap(
-          (workoutCourse: WorkoutCourseDTO) =>
-            (this.form =
-              UserWorkoutFormHelper.createEditWorkoutCourseForm(workoutCourse))
+          (workout: WorkoutDTO) =>
+            (this.form = UserWorkoutFormHelper.createEditWorkoutForm(workout))
         )
       );
   }

@@ -1,0 +1,31 @@
+<div class="action-buttons">
+  <button
+    mat-button
+    [disabled]="isExerciseOngoing !== null"
+    (click)="startTimer()"
+  >
+    Inizia
+  </button>
+
+  <span>{{ minutes }} : {{ seconds }}</span>
+
+  <ng-container
+    *ngIf="
+      isExerciseOngoing === null || isExerciseOngoing;
+      else nextExerciseButton
+    "
+  >
+    <button
+      mat-button
+      (click)="completeCurrentExercise()"
+      [disabled]="!isExerciseOngoing"
+    >
+      Termina
+    </button>
+  </ng-container>
+  <ng-template #nextExerciseButton>
+    <button mat-button (click)="onStartNextExercise.emit()">
+      Prossimo esercizio
+    </button>
+  </ng-template>
+</div>

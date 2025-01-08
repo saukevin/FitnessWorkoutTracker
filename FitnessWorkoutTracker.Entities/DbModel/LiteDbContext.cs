@@ -24,14 +24,20 @@ namespace FitnessWorkoutTracker.Entities.DbModel
                 throw new Exception("Error while creating Database Context", ex);
             }
 
-            BsonMapper.Global.Entity<WorkoutCourse>()
-                   .Id((WorkoutCourse w) => w.WorkoutCourseId)
-                   .DbRef((WorkoutCourse w) => w.Exercises, DatabaseStructure.ExercisesCollection);
+            BsonMapper.Global.Entity<Workout>()
+                .Id((Workout w) => w.WorkoutId)
+                .DbRef((Workout w) => w.Exercises, DatabaseStructure.ExercisesCollection)
+                .DbRef((Workout w) => w.WorkoutSessions, DatabaseStructure.WorkoutSessionsCollection);
+
             BsonMapper.Global.Entity<Exercise>()
-                   .Id((Exercise e) => e.ExerciseId)
-                   .DbRef((Exercise e) => e.ExercisePerformances, DatabaseStructure.ExercisePerformancesCollection);
-            BsonMapper.Global.Entity<ExercisePerformance>()
-                   .Id((ExercisePerformance e) => e.ExercisePerformanceId);
+                .Id((Exercise e) => e.ExerciseId);
+
+            BsonMapper.Global.Entity<WorkoutSession>()
+                .Id((WorkoutSession w) => w.WorkoutSessionId)
+                .DbRef((WorkoutSession w) => w.ExerciseSessions, DatabaseStructure.ExerciseSessionsCollection);
+
+            BsonMapper.Global.Entity<ExerciseSession>()
+                .Id((ExerciseSession e) => e.ExerciseSessionId);
         }
 
     }

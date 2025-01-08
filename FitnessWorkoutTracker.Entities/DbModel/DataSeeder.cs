@@ -19,27 +19,27 @@ namespace FitnessWorkoutTracker.Entities.DbModel
             ILiteCollection<Exercise> exercisesCollection = _dbContext.Context.GetCollection<Exercise>(DatabaseStructure.ExercisesCollection);
             if (!exercisesCollection.FindAll().Any())
             {
-                Console.WriteLine("Seeding application workout courses exercises");
+                Console.WriteLine("Seeding application workout exercises");
                 exercisesCollection.InsertBulk(upperBodyExercises);
                 exercisesCollection.EnsureIndex((Exercise e) => e.Name);
             }
 
-            ILiteCollection<WorkoutCourse> workoutCoursesCollection = _dbContext.Context.GetCollection<WorkoutCourse>(DatabaseStructure.WorkoutCollection);
-            if (!workoutCoursesCollection.FindAll().Any())
+            ILiteCollection<Workout> workoutsCollection = _dbContext.Context.GetCollection<Workout>(DatabaseStructure.WorkoutCollection);
+            if (!workoutsCollection.FindAll().Any())
             {
-                Console.WriteLine("Seeding application workout courses");
-                List<WorkoutCourse> workoutCourses = new List<WorkoutCourse>()
+                Console.WriteLine("Seeding application workouts");
+                List<Workout> workouts = new List<Workout>()
                 {
-                    new WorkoutCourse()
+                    new Workout()
                     {
                         Name = "Upper Body Workout",
                         Description = "Test yourself with the most proficient workout for the upper body!",
                         Exercises = upperBodyExercises,
-                        WorkoutCourseType = WorkoutCourseType.APP_WORKOUT
+                        WorkoutType = WorkoutType.APP_WORKOUT
                     }
                 };
-                workoutCoursesCollection.InsertBulk(workoutCourses);
-                workoutCoursesCollection.EnsureIndex((WorkoutCourse w) => w.Name);
+                workoutsCollection.InsertBulk(workouts);
+                workoutsCollection.EnsureIndex((Workout w) => w.Name);
             }
         }
 

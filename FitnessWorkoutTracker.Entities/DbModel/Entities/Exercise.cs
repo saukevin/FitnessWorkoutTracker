@@ -8,6 +8,6 @@
         public int Sets { get; set; }
         public int Repetitions { get; set; }
         public double? Load { get; set; }
-        public List<ExercisePerformance> ExercisePerformances { get; set; }
+        public List<ExerciseSession> ExerciseSessions { get; set; }
     }
 }

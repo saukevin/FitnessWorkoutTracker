@@ -9,7 +9,7 @@ import { UserWorkoutsPageComponent } from './pages/user-workouts-page/user-worko
 import { CreateUserWorkoutPageComponent } from './pages/create-user-workout-page/create-user-workout-page.component';
 import { EditUserWorkoutPageComponent } from './pages/edit-user-workout-page/edit-user-workout-page.component';
 import { ExerciseFormCardComponent } from './components/exercise-form-card/exercise-form-card.component';
-import { WorkoutCoursesListComponent } from './components/workout-courses-list/workout-courses-list.component';
+import { WorkoutsListComponent } from './components/workouts-list/workouts-list.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,7 @@ import { WorkoutCoursesListComponent } from './components/workout-courses-list/w
     CreateUserWorkoutPageComponent,
     EditUserWorkoutPageComponent,
     ExerciseFormCardComponent,
-    WorkoutCoursesListComponent,
+    WorkoutsListComponent,
   ],
   imports: [SharedModule, WorkoutAdministrationRoutingModule],
 })

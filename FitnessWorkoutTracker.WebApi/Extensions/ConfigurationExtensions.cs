@@ -1,6 +1,4 @@
 ﻿using FitnessWorkoutTracker.Entities.SettingsEntities;
-using System.Security.AccessControl;
-using System.Security.Principal;
 
 namespace FitnessWorkoutTracker.WebApi.Extensions
 {

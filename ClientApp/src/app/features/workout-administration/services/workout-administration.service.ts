@@ -1,12 +1,12 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { WorkoutCourseDTO } from '../models/workoutCourseDTO';
+import { WorkoutDTO } from '../models/workoutDTO';
 import { BaseHttpService } from '../../../shared/services/baseHttpService';
-import { WorkoutCourseTypeEnum } from '../enum/workoutTypeEnum';
-import { CreateWorkoutCourseDTO } from '../models/createWorkoutCourseDTO';
+import { WorkoutTypeEnum } from '../enum/workoutTypeEnum';
+import { CreateWorkoutDTO } from '../models/createWorkoutDTO';
 import { AppSnackBarService } from '../../../shared/services/app-snack-bar.service';
-import { UpdateWorkoutCourseDTO } from '../models/updateWorkoutCourseDTO';
+import { UpdateWorkoutDTO } from '../models/updateWorkoutDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -14,34 +14,30 @@ import { UpdateWorkoutCourseDTO } from '../models/updateWorkoutCourseDTO';
 export class WorkoutAdministrationService extends BaseHttpService {
   private snackBarService: AppSnackBarService = inject(AppSnackBarService);
 
-  constructor(private httpClient: HttpClient) {
+  constructor() {
     super();
   }
 
-  public getWorkoutCourseById(
-    workoutCourseId: number
-  ): Observable<WorkoutCourseDTO> {
-    const url: string = `${this.baseUri}/WorkoutCourses/${workoutCourseId}`;
-    return this.httpClient.get<WorkoutCourseDTO>(url);
+  public getWorkoutById(workoutId: number): Observable<WorkoutDTO> {
+    const url: string = `${this.baseUri}/Workouts/${workoutId}`;
+    return this.httpClient.get<WorkoutDTO>(url);
   }
 
-  public getAllWorkoutCourses(): Observable<WorkoutCourseDTO[]> {
-    const url: string = `${this.baseUri}/WorkoutCourses`;
-    return this.httpClient.get<WorkoutCourseDTO[]>(url);
+  public getAllWorkouts(): Observable<WorkoutDTO[]> {
+    const url: string = `${this.baseUri}/Workouts`;
+    return this.httpClient.get<WorkoutDTO[]>(url);
   }
 
-  public getAllWorkoutCoursesByType(
-    workoutType: WorkoutCourseTypeEnum
-  ): Observable<WorkoutCourseDTO[]> {
-    const url: string = `${this.baseUri}/WorkoutCourses/byType?workoutCourseType=${workoutType}`;
-    return this.httpClient.get<WorkoutCourseDTO[]>(url);
+  public getAllWorkoutsByType(
+    workoutType: WorkoutTypeEnum
+  ): Observable<WorkoutDTO[]> {
+    const url: string = `${this.baseUri}/Workouts/byType?workoutType=${workoutType}`;
+    return this.httpClient.get<WorkoutDTO[]>(url);
   }
 
-  public createWorkoutCourse(
-    newWorkoutCourse: CreateWorkoutCourseDTO
-  ): Observable<WorkoutCourseDTO> {
-    const url: string = `${this.baseUri}/WorkoutCourses`;
-    return this.httpClient.post<WorkoutCourseDTO>(url, newWorkoutCourse).pipe(
+  public createWorkout(newWorkout: CreateWorkoutDTO): Observable<WorkoutDTO> {
+    const url: string = `${this.baseUri}/Workouts`;
+    return this.httpClient.post<WorkoutDTO>(url, newWorkout).pipe(
       catchError((err: HttpErrorResponse) => {
         this.snackBarService.open(
           "C'è stato un'errore nella creazione del corso personalizzato."
@@ -51,19 +47,15 @@ export class WorkoutAdministrationService extends BaseHttpService {
     );
   }
 
-  updateWorkoutCourse(
-    workoutCourseToUpdate: UpdateWorkoutCourseDTO
-  ): Observable<WorkoutCourseDTO> {
-    const url: string = `${this.baseUri}/WorkoutCourses/${workoutCourseToUpdate.workoutCourseId}`;
-    return this.httpClient
-      .put<WorkoutCourseDTO>(url, workoutCourseToUpdate)
-      .pipe(
-        catchError((err: HttpErrorResponse) => {
-          this.snackBarService.open(
-            "C'è stato un'errore nell'aggiornamento del corso personalizzato."
-          );
-          return throwError(() => new Error());
-        })
-      );
+  updateWorkout(workoutToUpdate: UpdateWorkoutDTO): Observable<WorkoutDTO> {
+    const url: string = `${this.baseUri}/Workouts/${workoutToUpdate.workoutId}`;
+    return this.httpClient.put<WorkoutDTO>(url, workoutToUpdate).pipe(
+      catchError((err: HttpErrorResponse) => {
+        this.snackBarService.open(
+          "C'è stato un'errore nell'aggiornamento del corso personalizzato."
+        );
+        return throwError(() => new Error());
+      })
+    );
   }
 }

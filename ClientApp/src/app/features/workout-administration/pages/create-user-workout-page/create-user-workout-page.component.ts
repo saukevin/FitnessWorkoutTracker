@@ -6,7 +6,7 @@ import {
 import { WorkoutAdministrationService } from '../../services/workout-administration.service';
 import { FormGroup } from '@angular/forms';
 import { UserWorkoutFormHelper } from '../../helpers/userWorkoutFormHelper';
-import { CreateWorkoutCourseDTO } from '../../models/createWorkoutCourseDTO';
+import { CreateWorkoutDTO } from '../../models/createWorkoutDTO';
 import { finalize } from 'rxjs';
 import { Router } from '@angular/router';
 import { AppSnackBarService } from '../../../../shared/services/app-snack-bar.service';
@@ -39,15 +39,15 @@ export class CreateUserWorkoutPageComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.form = UserWorkoutFormHelper.createNewWorkoutCourseForm();
+    this.form = UserWorkoutFormHelper.createNewWorkoutForm();
   }
 
-  createWorkoutCourse(): void {
-    const newWorkoutCourse: CreateWorkoutCourseDTO =
-      UserWorkoutFormHelper.mapFormToCreateWorkoutCourseDTO(this.form);
+  createWorkout(): void {
+    const newWorkout: CreateWorkoutDTO =
+      UserWorkoutFormHelper.mapFormToCreateWorkoutDTO(this.form);
     this.loading = true;
     this.workoutAdministrationService
-      .createWorkoutCourse(newWorkoutCourse)
+      .createWorkout(newWorkout)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: () => {

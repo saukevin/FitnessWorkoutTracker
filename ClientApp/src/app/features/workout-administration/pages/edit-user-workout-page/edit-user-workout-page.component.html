@@ -1,4 +1,4 @@
-<ng-container *ngIf="workoutCourse$ | async; let workoutCourse">
+<ng-container *ngIf="workout$ | async">
   <h2>Modifica allenamento</h2>
   <ng-container *ngIf="!!form">
     <app-add-edit-workout-form [form]="form"></app-add-edit-workout-form>
@@ -12,7 +12,7 @@
 
     <button
       mat-button
-      (click)="saveWorkoutCourse()"
+      (click)="saveWorkout()"
       [disabled]="isSaveButtonDisabled"
     >
       <mat-icon>save</mat-icon>

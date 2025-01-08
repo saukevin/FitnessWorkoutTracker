@@ -10,7 +10,6 @@ namespace FitnessWorkoutTracker.Entities.DTOs
         public int Sets { get; set; }
         public int Repetitions { get; set; }
         public double? Load { get; set; }
-        //public List<ExercisePerformanceDTO> ExercisePerformances { get; set; }
 
         public ExerciseDTO() { }    
 
@@ -22,9 +21,6 @@ namespace FitnessWorkoutTracker.Entities.DTOs
             Sets = exercise.Sets;
             Repetitions = exercise.Repetitions;
             Load = exercise.Load;
-            //ExercisePerformances = exercise.ExercisePerformances
-            //    .Select((ExercisePerformance ep) => new ExercisePerformanceDTO(ep))
-            //    .ToList();
         }
     }
 }

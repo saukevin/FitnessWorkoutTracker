@@ -1,11 +1,11 @@
-import { WorkoutCourseDTO } from './workoutCourseDTO';
+import { WorkoutDTO } from './workoutDTO';
 
 export class ExerciseDTO {
-  id: number;
+  exerciseId: number;
   name: string;
   description: string;
   sets: number;
   repetitions: number;
   load?: number;
-  workoutCourse: WorkoutCourseDTO;
+  workout: WorkoutDTO;
 }
