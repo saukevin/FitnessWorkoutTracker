@@ -30,7 +30,33 @@ export class WorkoutSessionCacheService {
     );
   }
 
-  public completeExerciseSession(exerciseId: number): void {}
+  public completeCurrentExerciseSessionAndGetNext(
+    currentExerciseSessionId: number
+  ): Observable<ExerciseSessionDTO | undefined> {
+    this.currentWorkoutSession$ = this.currentWorkoutSession$.pipe(
+      map((workoutSession: WorkoutSessionDTO) => {
+        workoutSession.exercisesSessions = workoutSession.exercisesSessions.map(
+          (exerciseSession: ExerciseSessionDTO) => {
+            if (exerciseSession.exerciseSessionId === currentExerciseSessionId)
+              exerciseSession.isCompleted = true;
+            return exerciseSession;
+          }
+        );
+
+        return workoutSession;
+      })
+    );
+
+    return this.currentWorkoutSession$.pipe(
+      map((workoutSession: WorkoutSessionDTO) =>
+        workoutSession.exercisesSessions.find(
+          (exerciseSession: ExerciseSessionDTO) =>
+            exerciseSession.exerciseSessionId !== currentExerciseSessionId &&
+            !exerciseSession.isCompleted
+        )
+      )
+    );
+  }
 
   public isWorkoutSessionExerciseCompleted(
     exerciseId: number

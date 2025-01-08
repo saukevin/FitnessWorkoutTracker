@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-exercise-session-actions',
@@ -6,7 +14,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
   templateUrl: './exercise-session-actions.component.html',
   styleUrl: './exercise-session-actions.component.scss',
 })
-export class ExerciseSessionActionsComponent {
+export class ExerciseSessionActionsComponent implements OnInit, OnDestroy {
+  @Input() onReset: Observable<void>;
   @Output() onCompleteCurrentExercise: EventEmitter<number> =
     new EventEmitter();
   @Output() onStartNextExercise: EventEmitter<void> = new EventEmitter();
@@ -17,6 +26,20 @@ export class ExerciseSessionActionsComponent {
   seconds: number = 0;
 
   private timer: any;
+
+  private onResetSubscription: Subscription;
+
+  constructor() {}
+
+  ngOnInit() {
+    this.onResetSubscription = this.onReset.subscribe({
+      next: () => this.resetComponentVariables(),
+    });
+  }
+
+  ngOnDestroy() {
+    this.onResetSubscription.unsubscribe();
+  }
 
   startTimer(): void {
     this.isExerciseOngoing = true;
@@ -37,5 +60,11 @@ export class ExerciseSessionActionsComponent {
     clearInterval(this.timer);
     const totalSeconds: number = this.minutes * 60 + this.seconds;
     this.onCompleteCurrentExercise.emit(totalSeconds);
+  }
+
+  private resetComponentVariables(): void {
+    this.isExerciseOngoing = null;
+    this.minutes = 0;
+    this.seconds = 0;
   }
 }
