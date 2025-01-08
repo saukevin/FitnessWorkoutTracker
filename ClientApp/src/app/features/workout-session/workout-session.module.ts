@@ -7,6 +7,7 @@ import { ExerciseCardComponent } from './components/exercise-card/exercise-card.
 import { ExerciseSessionPageComponent } from './pages/exercise-session-page/exercise-session-page.component';
 import { ExerciseSessionActionsComponent } from './components/exercise-session-actions/exercise-session-actions.component';
 import { WorkoutSessionCompletedPageComponent } from './pages/workout-session-completed-page/workout-session-completed-page.component';
+import { TimeNumberToStringPipe } from './pipes/time-number-to-string.pipe';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { WorkoutSessionCompletedPageComponent } from './pages/workout-session-co
     ExerciseSessionPageComponent,
     ExerciseSessionActionsComponent,
     WorkoutSessionCompletedPageComponent,
+    TimeNumberToStringPipe,
   ],
   imports: [SharedModule, WorkoutSessionRoutingModule],
 })

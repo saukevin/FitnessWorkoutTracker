@@ -7,7 +7,10 @@
     Inizia
   </button>
 
-  <span>{{ minutes }} : {{ seconds }}</span>
+  <span>
+    {{ minutes | timeNumberToString }} :
+    {{ seconds | timeNumberToString }}
+  </span>
 
   <ng-container
     *ngIf="

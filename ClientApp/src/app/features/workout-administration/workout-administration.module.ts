@@ -14,6 +14,8 @@ import { WorkoutSessionCardComponent } from './components/workout-session-card/w
 import { CompletedWorkoutSessionsPageComponent } from './pages/completed-workout-sessions-page/completed-workout-sessions-page.component';
 import { CompletedWorkoutSessionDetailsPageComponent } from './pages/completed-workout-session-details-page/completed-workout-session-details-page.component';
 import { CompletedExerciseSessionCardComponent } from './components/completed-exercise-session-card/completed-exercise-session-card.component';
+import { SecondsToStringPipe } from './pipes/seconds-to-string.pipe';
+import { TimeNumberToStringPipe } from '../workout-session/pipes/time-number-to-string.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { CompletedExerciseSessionCardComponent } from './components/completed-ex
     CompletedWorkoutSessionsPageComponent,
     CompletedWorkoutSessionDetailsPageComponent,
     CompletedExerciseSessionCardComponent,
+    SecondsToStringPipe,
   ],
   imports: [SharedModule, WorkoutAdministrationRoutingModule],
+  providers: [TimeNumberToStringPipe],
 })
 export class WorkoutAdministrationModule {}

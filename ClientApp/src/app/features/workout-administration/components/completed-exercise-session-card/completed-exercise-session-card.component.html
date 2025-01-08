@@ -13,13 +13,13 @@
       <strong>Sets:</strong>
     </p>
     <p>
-      {{ exerciseSession.exercise.sets | date : "dd/MM/yyyy" }}
+      {{ exerciseSession.exercise.sets }}
     </p>
     <p>
       <strong>Reps:</strong>
     </p>
     <p>
-      {{ exerciseSession.exercise.repetitions | date : "dd/MM/yyyy" }}
+      {{ exerciseSession.exercise.repetitions }}
     </p>
     <ng-container *ngIf="exerciseSession.exercise.load">
       <p>
@@ -33,7 +33,7 @@
       <strong>Tempo di esecuzione:</strong>
     </p>
     <p>
-      {{ exerciseSession.executionTime | date : "dd/MM/yyyy" }}
+      {{ exerciseSession.executionTime | secondsToString }}
     </p>
   </mat-card-content>
 </mat-card>
