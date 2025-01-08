@@ -10,8 +10,11 @@
     <a mat-menu-item [routerLink]="currentWorkoutsRoute">
       <span>Allenamenti in corso</span>
     </a>
-    <a mat-menu-item [routerLink]="userWokroutsRoute">
+    <a mat-menu-item [routerLink]="userWorkoutsRoute">
       <span>Allenamenti personalizzati</span>
     </a>
   </mat-menu>
+  <button mat-button [routerLink]="completedWorkoutsRoute">
+    Allenamenti completati
+  </button>
 </div>

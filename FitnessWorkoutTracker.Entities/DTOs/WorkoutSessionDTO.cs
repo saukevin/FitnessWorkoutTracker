@@ -19,6 +19,7 @@ namespace FitnessWorkoutTracker.Entities.DTOs
             WorkoutName = workoutSession.WorkoutName;
             StartDate = workoutSession.StartDate;
             EndDate = workoutSession.EndDate;
+            IsCompleted = workoutSession.IsCompleted;
             ExercisesSessions = workoutSession.ExerciseSessions
                 .Select((ExerciseSession ep) => new ExerciseSessionDTO(ep))
                 .ToList();

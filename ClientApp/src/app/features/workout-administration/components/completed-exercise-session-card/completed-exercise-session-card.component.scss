@@ -1,0 +1,11 @@
+mat-card {
+  width: 300px;
+  height: 430px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+p {
+  overflow-wrap: break-word;
+}

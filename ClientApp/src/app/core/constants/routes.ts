@@ -4,6 +4,7 @@ export const EDIT_ROUTE: string = 'edit';
 export const WORKOUT_ADMINISTRATION_ROUTE: string = 'workout-admin';
 export const CURRENT_WORKOUTS_ROUTE: string = 'current-workouts';
 export const USER_WORKOUTS_ROUTE: string = 'user-workouts';
+export const COMPLETED_WORKOUT_SESSIONS_ROUTE: string = 'workouts-completed';
 
 export const WORKOUT_SESSION_ROUTE: string = 'workout-session';
 export const COMPLETED_WORKOUT_SESSION_ROUTE: string = 'workout-completed';

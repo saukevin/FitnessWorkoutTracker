@@ -9,11 +9,24 @@
     <p>
       {{ workoutSession.startDate | date : "dd/MM/yyyy" }}
     </p>
+    <ng-container *ngIf="workoutSession.isCompleted">
+      <p>
+        <strong>Terminato il:</strong>
+      </p>
+      <p>
+        {{ workoutSession.endDate | date : "dd/MM/yyyy" }}
+      </p>
+    </ng-container>
   </mat-card-content>
   <mat-card-actions>
     <!-- TODO continue exerxies? -->
     <!-- <button mat-button>Continua</button> -->
 
-    <button mat-button (click)="onDelete.emit()">Elimina</button>
+    <ng-container *ngIf="workoutSession.isCompleted; else deleteButton">
+      <a mat-button [routerLink]="workoutSessionDetailsRoute">Dettagli</a>
+    </ng-container>
+    <ng-template #deleteButton>
+      <button mat-button (click)="onDelete.emit()">Elimina</button>
+    </ng-template>
   </mat-card-actions>
 </mat-card>

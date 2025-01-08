@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {
+  COMPLETED_WORKOUT_SESSIONS_ROUTE,
   CURRENT_WORKOUTS_ROUTE,
   USER_WORKOUTS_ROUTE,
   WORKOUT_ADMINISTRATION_ROUTE,
@@ -20,8 +21,12 @@ export class NavbarComponent {
     return `${WORKOUT_ADMINISTRATION_ROUTE}/${CURRENT_WORKOUTS_ROUTE}`;
   }
 
-  get userWokroutsRoute(): string {
+  get userWorkoutsRoute(): string {
     return `${WORKOUT_ADMINISTRATION_ROUTE}/${USER_WORKOUTS_ROUTE}`;
+  }
+
+  get completedWorkoutsRoute(): string {
+    return `${WORKOUT_ADMINISTRATION_ROUTE}/${COMPLETED_WORKOUT_SESSIONS_ROUTE}`;
   }
 
   constructor() {}

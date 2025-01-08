@@ -1,0 +1,39 @@
+<mat-card appearance="outlined">
+  <mat-card-content>
+    <p>
+      <strong>{{ exerciseSession.exercise.name }}</strong>
+    </p>
+    <p>
+      <strong>Svolto il:</strong>
+    </p>
+    <p>
+      {{ exerciseSession.executionDate | date : "dd/MM/yyyy" }}
+    </p>
+    <p>
+      <strong>Sets:</strong>
+    </p>
+    <p>
+      {{ exerciseSession.exercise.sets | date : "dd/MM/yyyy" }}
+    </p>
+    <p>
+      <strong>Reps:</strong>
+    </p>
+    <p>
+      {{ exerciseSession.exercise.repetitions | date : "dd/MM/yyyy" }}
+    </p>
+    <ng-container *ngIf="exerciseSession.exercise.load">
+      <p>
+        <strong>Carico:</strong>
+      </p>
+      <p>
+        {{ exerciseSession.exercise.load }}
+      </p>
+    </ng-container>
+    <p>
+      <strong>Tempo di esecuzione:</strong>
+    </p>
+    <p>
+      {{ exerciseSession.executionTime | date : "dd/MM/yyyy" }}
+    </p>
+  </mat-card-content>
+</mat-card>

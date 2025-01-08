@@ -1,0 +1,9 @@
+<h2>Allenamenti completati</h2>
+
+<div class="workout-sessions">
+  <ng-container *ngFor="let workoutSession of workoutSessions$ | async">
+    <app-workout-session-card
+      [workoutSession]="workoutSession"
+    ></app-workout-session-card>
+  </ng-container>
+</div>

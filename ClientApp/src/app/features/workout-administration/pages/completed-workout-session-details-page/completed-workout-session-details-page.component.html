@@ -1,0 +1,11 @@
+<h2>Esercizi completati dell'allenamento {{ workoutName }}</h2>
+
+<ng-container *ngIf="!!exerciseSessions">
+  <div class="exercise-sessions">
+    <ng-container *ngFor="let exerciseSession of exerciseSessions">
+      <app-completed-exercise-session-card
+        [exerciseSession]="exerciseSession"
+      ></app-completed-exercise-session-card>
+    </ng-container>
+  </div>
+</ng-container>
