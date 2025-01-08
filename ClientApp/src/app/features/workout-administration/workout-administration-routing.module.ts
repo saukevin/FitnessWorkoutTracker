@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
-  APP_WORKOUTS_ROUTE,
   CREATE_ROUTE,
   CURRENT_WORKOUTS_ROUTE,
   EDIT_ROUTE,
@@ -15,7 +14,7 @@ import { EditUserWorkoutPageComponent } from './pages/edit-user-workout-page/edi
 
 const routes: Routes = [
   {
-    path: APP_WORKOUTS_ROUTE,
+    path: '',
     component: AppWorkoutsPageComponent,
   },
   {

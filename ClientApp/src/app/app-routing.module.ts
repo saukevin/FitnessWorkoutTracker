@@ -1,18 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
-  HOME_ROUTE,
   WORKOUT_ADMINISTRATION_ROUTE,
   WORKOUT_SESSION_ROUTE,
 } from './core/constants/routes';
-import { HomePageComponent } from './core/pages/home-page/home-page.component';
 import { workoutSessionResolver } from './features/workout-session/resolvers/workout-session.resolver';
 
 const routes: Routes = [
-  {
-    path: HOME_ROUTE,
-    component: HomePageComponent,
-  },
   {
     path: WORKOUT_ADMINISTRATION_ROUTE,
     loadChildren: () =>
@@ -30,10 +24,10 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: HOME_ROUTE,
+    redirectTo: WORKOUT_ADMINISTRATION_ROUTE,
     pathMatch: 'full',
   },
-  { path: '**', redirectTo: HOME_ROUTE, pathMatch: 'full' },
+  { path: '**', redirectTo: WORKOUT_ADMINISTRATION_ROUTE, pathMatch: 'full' },
 ];
 
 @NgModule({
